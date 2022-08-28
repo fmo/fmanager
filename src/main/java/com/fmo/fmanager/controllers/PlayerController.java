@@ -4,6 +4,8 @@ import com.fmo.fmanager.domain.Player;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,5 +21,12 @@ public class PlayerController {
         model.addAttribute("listPosition", listPosition);
 
         return "add-player-page";
+    }
+
+    @PostMapping("player/save")
+    public String submitPlayer(Model model, @ModelAttribute("player") Player player) {
+        model.addAttribute("player", player);
+
+        return "add-player-success";
     }
 }
