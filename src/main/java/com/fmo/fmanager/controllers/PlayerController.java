@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PlayerController {
     @GetMapping("addPlayerPage")
     public String addPlayerPage(Model model) {
-        return "index";
+        return "add-player-page";
     }
 }
