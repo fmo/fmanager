@@ -37,6 +37,10 @@
                 <label>First name:</label>
                 <input type="text" th:field = "*{firstName}" />
                 <br />
+                <label>Positions:</label>
+                <select th:field="*{position}">
+                    <option th:each="p : ${listPosition}" th:value="${p}" th:text="${p}"></option>
+                </select>
                 <button type="submit">Save</button>
             </form>
         </div>
