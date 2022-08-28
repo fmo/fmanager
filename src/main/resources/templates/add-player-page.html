@@ -33,7 +33,7 @@
     <div align="center">
         <div style="border-style: solid; width: 500px">
             <h1>Add Player</h1>
-            <form th:action="@{/player/save}" th:object="${playerForm}" role="form" method="post">
+            <form th:action="@{/player/save}" th:object="${player}" role="form" method="post">
                 <label>First name:</label>
                 <input type="text" th:field = "*{firstName}" />
                 <br />
