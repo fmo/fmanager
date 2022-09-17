@@ -1,6 +1,8 @@
 package com.fmo.fmanager.controllers;
 
 import com.fmo.fmanager.domain.Player;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,9 @@ import java.util.List;
 
 @Controller
 public class PlayerController {
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
     @GetMapping("addPlayerPage")
     public String addPlayerPage(Model model) {
         Player player = new Player();
@@ -26,6 +31,8 @@ public class PlayerController {
     @PostMapping("player/save")
     public String submitPlayer(Model model, @ModelAttribute("player") Player player) {
         model.addAttribute("player", player);
+
+        rabbitTemplate.convertAndSend("MyTopicExchange", "topic", player);
 
         return "add-player-success";
     }

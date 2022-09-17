@@ -1,6 +1,8 @@
 package com.fmo.fmanager.domain;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
     private String firstName;
     private String lastName;
     private String position;
