@@ -6,7 +6,6 @@ kubectl expose deployment fm-node --type=NodePort --port=8080
 
 minikube service fm-node --url
 
-
 <hr />
 
 ## Run everything on Docker
