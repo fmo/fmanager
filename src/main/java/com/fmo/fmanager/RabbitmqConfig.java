@@ -11,6 +11,9 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitmqConfig {
     private static final String MY_QUEUE = "MyQueue";
 
+    @Value("${spring.rabbitmq.host}")
+    private String rabbitHost;
+
     @Bean
     Queue myQueue() {
         return new Queue(MY_QUEUE, true);
@@ -33,7 +36,7 @@ public class RabbitmqConfig {
     }
 
     @Bean
-    ConnectionFactory connectionFactory(@Value("${spring.rabbitmq.host}") String rabbitHost) {
+    ConnectionFactory connectionFactory() {
         CachingConnectionFactory cashingConnectionFactory = new CachingConnectionFactory(rabbitHost);
         cashingConnectionFactory.setUsername("guest");
         cashingConnectionFactory.setPassword("guest");
