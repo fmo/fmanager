@@ -3,6 +3,7 @@ package com.fmo.fmanager;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,8 +33,8 @@ public class RabbitmqConfig {
     }
 
     @Bean
-    ConnectionFactory connectionFactory() {
-        CachingConnectionFactory cashingConnectionFactory = new CachingConnectionFactory("rabbit-1");
+    ConnectionFactory connectionFactory(@Value("${spring.rabbitmq.host}") String rabbitHost) {
+        CachingConnectionFactory cashingConnectionFactory = new CachingConnectionFactory(rabbitHost);
         cashingConnectionFactory.setUsername("guest");
         cashingConnectionFactory.setPassword("guest");
 
