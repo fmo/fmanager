@@ -37,13 +37,10 @@ public class PlayerController {
             JsonNode root = mapper.readTree(json);
             JsonNode json2 = root.at("/_embedded/positions");
             List<Position> positions = mapper.readValue(json2.toString(), typeReference);
-            System.out.println(positions);
+            model.addAttribute("positions", positions);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-        List<String> position = Arrays.asList("GK", "DC", "DR", "DL", "DMC", "MC", "FC");
-        model.addAttribute("position", position);
 
         return "add-player-page";
     }
