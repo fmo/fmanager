@@ -18,9 +18,9 @@ public class PlayerController {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
-
     @Autowired
     private PositionsService positionsService;
+
     @GetMapping("addPlayerPage")
     public String addPlayerPage(Model model) {
         Player player = new Player();
