@@ -1,6 +1,10 @@
 package com.fmo.fmanager.controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fmo.fmanager.domain.Player;
+import com.fmo.fmanager.domain.Position;
 import com.fmo.fmanager.services.PositionsService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +31,19 @@ public class PlayerController {
         model.addAttribute("player", player);
 
         String json = positionsService.getPositionsPlainJSON();
+        ObjectMapper mapper = new ObjectMapper();
+        TypeReference<List<Position>> typeReference = new TypeReference<>() {};
+        try {
+            JsonNode root = mapper.readTree(json);
+            JsonNode json2 = root.at("/_embedded/positions");
+            List<Position> positions = mapper.readValue(json2.toString(), typeReference);
+            System.out.println(positions);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
-        System.out.println(json);
-
-        List<String> listPosition = Arrays.asList("GK", "DC", "DR", "DL", "DMC", "MC", "FC");
-        model.addAttribute("listPosition", listPosition);
+        List<String> position = Arrays.asList("GK", "DC", "DR", "DL", "DMC", "MC", "FC");
+        model.addAttribute("position", position);
 
         return "add-player-page";
     }
