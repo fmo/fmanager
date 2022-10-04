@@ -1,6 +1,7 @@
 package com.fmo.fmanager.controllers;
 
 import com.fmo.fmanager.domain.Player;
+import com.fmo.fmanager.services.PositionsService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +18,17 @@ public class PlayerController {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private PositionsService positionsService;
     @GetMapping("addPlayerPage")
     public String addPlayerPage(Model model) {
         Player player = new Player();
         model.addAttribute("player", player);
+
+        String json = positionsService.getPositionsPlainJSON();
+
+        System.out.println(json);
 
         List<String> listPosition = Arrays.asList("GK", "DC", "DR", "DL", "DMC", "MC", "FC");
         model.addAttribute("listPosition", listPosition);
