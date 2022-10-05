@@ -1,4 +1,4 @@
-package com.fmo.fmanager;
+package com.fmo.fmanager.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
